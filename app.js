@@ -1,12 +1,20 @@
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
-const taskDate = document.getElementById('task-date');
+const taskStartDate = document.getElementById('task-start-date');
+const taskEndDate = document.getElementById('task-end-date');
 const taskList = document.getElementById('task-list');
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleString('bg-BG', {
+    dateStyle: 'short',
+    timeStyle: 'short'
+  });
 }
 
 function renderTasks() {
@@ -16,14 +24,17 @@ function renderTasks() {
     const li = document.createElement('li');
     li.className = `task-item ${task.completed ? 'completed' : ''}`;
 
-    let dateHtml = '';
-    if (task.dueDate) {
-      const formattedDate = new Date(task.dueDate).toLocaleString('bg-BG', {
-        dateStyle: 'short',
-        timeStyle: 'short'
-      });
-      dateHtml = `<span class="task-date-badge">${formattedDate}</span>`;
+    // Сглобяване на периода от - до
+    let dateText = '';
+    if (task.startDate && task.endDate) {
+      dateText = `От: ${formatDate(task.startDate)} — До: ${formatDate(task.endDate)}`;
+    } else if (task.startDate) {
+      dateText = `От: ${formatDate(task.startDate)}`;
+    } else if (task.endDate) {
+      dateText = `До: ${formatDate(task.endDate)}`;
     }
+
+    const dateHtml = dateText ? `<span class="task-date-badge">${dateText}</span>` : '';
 
     li.innerHTML = `
       <div class="task-item-content">
@@ -46,7 +57,8 @@ taskForm.addEventListener('submit', (e) => {
   const newTask = {
     id: Date.now(),
     text: taskInput.value.trim(),
-    dueDate: taskDate.value,
+    startDate: taskStartDate.value,
+    endDate: taskEndDate.value,
     completed: false
   };
 
@@ -54,8 +66,10 @@ taskForm.addEventListener('submit', (e) => {
   saveTasks();
   renderTasks();
 
+  // Изчистване на полетата след добавяне
   taskInput.value = '';
-  taskDate.value = '';
+  taskStartDate.value = '';
+  taskEndDate.value = '';
 });
 
 function toggleTask(id) {
