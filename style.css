@@ -1,42 +1,39 @@
-.date-row {
-  margin-bottom: 8px;
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 440px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 20px;
 }
 
-.date-row label {
-  font-size: 13px;
-  color: #8e8e93;
-}
-
-.task-actions {
+#task-form {
+  background-color: #1c1c1e;
+  padding: 16px;
+  border-radius: 14px;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item {
+  background-color: #1c1c1e;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-}
-
-.edit-btn {
-  background: transparent;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 4px;
-}
-
-.btn-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-#cancel-edit-btn {
-  background: #3a3a3c;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
 }
