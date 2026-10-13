@@ -11,11 +11,12 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
 }
 
-.container {
+.container,
+.app-container {
   width: 100%;
   max-width: 440px;
   display: flex;
@@ -30,30 +31,33 @@ h1 {
   color: #ffffff;
 }
 
-.card {
-  background-color: #1c1c1e;
-  border-radius: 16px;
-  padding: 20px;
-}
-
 #task-form {
+  background-color: #1c1c1e;
+  padding: 16px;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  margin-bottom: 25px;
 }
 
 #task-input {
+  width: 100%;
+  padding: 12px 14px;
   background-color: #2c2c2e;
-  border: none;
+  border: 1px solid #3a3a3c;
   border-radius: 10px;
-  padding: 14px 16px;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 16px;
   outline: none;
 }
 
 #task-input::placeholder {
   color: #8e8e93;
+}
+
+#task-input:focus {
+  border-color: #0a84ff;
 }
 
 .date-row {
@@ -67,23 +71,38 @@ h1 {
   color: #8e8e93;
 }
 
+/* Полетата за дата (От и До) */
+input[type="datetime-local"],
 #task-date {
+  width: 100%;
+  padding: 10px 12px;
   background-color: #2c2c2e;
-  border: none;
+  border: 1px solid #3a3a3c;
   border-radius: 10px;
-  padding: 12px 14px;
   color: #ffffff;
   font-size: 14px;
-  color-scheme: dark;
   outline: none;
+  color-scheme: dark;
+}
+
+input[type="datetime-local"]:focus,
+#task-date:focus {
+  border-color: #0a84ff;
+}
+
+/* Група бутони Добави / Запази и Отказ */
+.btn-group {
+  display: flex;
+  gap: 10px;
 }
 
 #add-btn {
-  background-color: #007aff;
+  flex: 1;
+  background-color: #0a84ff;
   color: #ffffff;
   border: none;
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: 10px;
+  padding: 13px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -94,6 +113,23 @@ h1 {
   opacity: 0.8;
 }
 
+#cancel-edit-btn {
+  background-color: #3a3a3c;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#cancel-edit-btn:active {
+  opacity: 0.8;
+}
+
+/* Списък със задачи */
 #task-list {
   list-style: none;
   display: flex;
@@ -108,25 +144,38 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
 .task-item-content {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
 }
 
-.task-item-content input[type="checkbox"] {
+.task-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  border-radius: 6px;
-  accent-color: #007aff;
+  accent-color: #30d158;
   cursor: pointer;
 }
 
+.task-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
 .task-title {
-  font-size: 15px;
+  font-size: 16px;
   color: #ffffff;
+  word-break: break-word;
+}
+
+.task-date-badge {
+  font-size: 12px;
+  color: #ff9f0a;
 }
 
 .task-item.completed .task-title {
@@ -134,12 +183,40 @@ h1 {
   color: #8e8e93;
 }
 
+.task-item.completed {
+  opacity: 0.6;
+}
+
+/* Бутоните вдясно на всяка задача */
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.edit-btn:active {
+  opacity: 0.6;
+}
+
 .delete-btn {
   background: transparent;
   border: none;
   color: #ff453a;
   font-size: 18px;
-  font-weight: bold;
   cursor: pointer;
-  padding: 2px 6px;
+  padding: 4px 6px;
+  transition: opacity 0.2s;
+}
+
+.delete-btn:active {
+  opacity: 0.6;
 }
