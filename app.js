@@ -7,7 +7,7 @@ const cancelEditBtn = document.getElementById('cancel-edit-btn');
 const taskList = document.getElementById('task-list');
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-let editingTaskId = null; // Пази ID-то на задачата, която редактираме
+let editingTaskId = null;
 
 function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -62,7 +62,6 @@ taskForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   if (editingTaskId !== null) {
-    // Режим РЕДАКЦИЯ
     tasks = tasks.map((task) => {
       if (task.id === editingTaskId) {
         return {
@@ -76,7 +75,6 @@ taskForm.addEventListener('submit', (e) => {
     });
     resetForm();
   } else {
-    // Режим НОВА ЗАДАЧА
     const newTask = {
       id: Date.now(),
       text: taskInput.value.trim(),
@@ -91,7 +89,7 @@ taskForm.addEventListener('submit', (e) => {
   renderTasks();
 });
 
-// Зареждане на задачата в полетата за редакция
+// Зареждане на задача в полетата
 function startEdit(id) {
   const taskToEdit = tasks.find(t => t.id === id);
   if (!taskToEdit) return;
@@ -101,14 +99,13 @@ function startEdit(id) {
   taskStartDate.value = taskToEdit.startDate || '';
   taskEndDate.value = taskToEdit.endDate || '';
 
-  addBtn.textContent = 'Запази промените';
+  addBtn.textContent = 'Запази';
   cancelEditBtn.style.display = 'block';
 
   taskInput.focus();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Отказ от редакция
 cancelEditBtn.addEventListener('click', () => {
   resetForm();
 });
